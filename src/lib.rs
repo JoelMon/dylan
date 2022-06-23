@@ -1,4 +1,4 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 use csv::StringRecord;
 use serde::{Deserialize, Serialize};
 
@@ -70,7 +70,7 @@ impl Field {
 }
 
 pub fn clean(record: Vec<StringRecord>) -> Result<Vec<Item>> {
-    let mut item: Vec<Item> = record
+    let item: Vec<Item> = record
         .iter()
         .map(|line| Item {
             ans: line
