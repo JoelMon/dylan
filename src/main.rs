@@ -5,74 +5,121 @@ use anyhow::{Context, Result};
 use csv::{self, StringRecord};
 use serde::{Deserialize, Serialize};
 
+/// The fields of an ANS.csv file.
+enum Field {
+    Ans,
+    DeliveryLocation,
+    DateDue,
+    PO,
+    DateEntered,
+    FedExTracking,
+    UPC,
+    Style,
+    Color,
+    Size,
+    Qty,
+    DateCompleted,
+    Picker,
+    OrderID,
+}
+
+impl Field {
+    /// Returns the CSV index for the corresponding field being passed in.
+    ///
+    /// # Example
+    /// ```rust, ignore
+    /// let f: Field = Field::UPC.index();
+    ///
+    /// assert_eq!(f, 6)
+    /// ```
+    fn index(&self) -> usize {
+        match &self {
+            Field::Ans => 0,
+            Field::DeliveryLocation => 1,
+            Field::DateDue => 2,
+            Field::PO => 3,
+            Field::DateEntered => 4,
+            Field::FedExTracking => 5,
+            Field::UPC => 6,
+            Field::Style => 7,
+            Field::Color => 8,
+            Field::Size => 9,
+            Field::Qty => 10,
+            Field::DateCompleted => 11,
+            Field::Picker => 12,
+            Field::OrderID => 13,
+        }
+    }
+}
+
 fn clean(record: Vec<StringRecord>) -> Result<Vec<Report>> {
     let mut item: Vec<Report> = record
         .iter()
         .map(|line| Report {
             ans: line
-                .get(0)
+                .get(Field::Ans.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             store: line
-                .get(1)
+                .get(Field::DeliveryLocation.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
-            due_date: line.get(2).unwrap().to_string(),
+            due_date: line.get(Field::DateDue.index()).unwrap().to_string(),
             po: line
-                .get(3)
+                .get(Field::PO.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             date_entered: line
-                .get(4)
+                .get(Field::DateEntered.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             fedex_tracking: line
-                .get(5)
+                .get(Field::FedExTracking.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             upc: line
-                .get(6)
+                .get(Field::UPC.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             style: line
-                .get(7)
+                .get(Field::Style.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             color: line
-                .get(8)
+                .get(Field::Color.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
             size: line
-                .get(9)
+                .get(Field::Size.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
-            qty: line.get(10).unwrap().to_string(),
+            qty: line.get(Field::Qty.index()).unwrap().to_string(),
             completed_date: line
-                .get(11)
+                .get(Field::DateCompleted.index())
                 .unwrap()
                 .trim_start_matches("=\"")
                 .trim_end_matches("\"")
                 .to_string(),
-            picker: line.get(12).unwrap().to_string(),
-            oder_id: line.get(13).unwrap().to_string(),
+            picker: line.get(Field::Picker.index()).unwrap().to_string(),
+            oder_id: line.get(Field::OrderID.index()).unwrap().to_string(),
         })
         .collect();
 
