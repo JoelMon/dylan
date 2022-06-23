@@ -1,5 +1,6 @@
 use std::{fs::File, path::PathBuf};
 
+mod fedex;
 use anyhow::{Context, Result};
 use csv::{self, StringRecord};
 
@@ -15,17 +16,17 @@ fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>> {
     Ok(records)
 }
 
-fn run() -> Result<()> {
+fn run() -> anyhow::Result<()> {
     let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
     let record = read_file(file_path);
-    let record = dylan::clean(record?)?; // records after being cleaned
+    let _record = dylan::clean(record?)?; // records after being cleaned
 
-    // Collect all FedEx tracking information and store unique.
-    // let mut fedex: HashSet<String> = record.iter().map(|x| x.fedex_tracking.to_owned()).collect();
+    let number: usize = 5555555555;
 
-    dbg!(record);
+    let fx = fedex::Tracking::add(number)
+        .context("Something went wrong while entering the FedEx tracking number.");
 
-    // dbg!(fedex);
+    print!("{:?}", fx);
 
     Ok(())
 }
