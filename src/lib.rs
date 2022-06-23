@@ -3,7 +3,7 @@ use csv::StringRecord;
 use serde::{Deserialize, Serialize};
 
 /// Represents a single item or line within the ANS.csv file.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct Item {
     ans: String,
     store: String,
@@ -20,6 +20,7 @@ pub struct Item {
     picker: String,
     oder_id: String,
 }
+
 /// The fields of an ANS.csv file.
 pub enum Field {
     Ans,
@@ -140,4 +141,58 @@ pub fn clean(record: Vec<StringRecord>) -> Result<Vec<Item>> {
         .collect();
 
     Ok(item)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn _t_field_index() {
+        let po: usize = 3;
+        let upc: usize = 6;
+
+        assert_eq!(Field::PO.index(), po);
+        assert_eq!(Field::UPC.index(), upc);
+    }
+
+    #[test]
+    fn t_clean() {
+        let dirty_item = vec![
+            "=\"123\"",
+            "=\"010\"",
+            "6/8/2022 12:00:55 AM",
+            "O0435NGTEE-010\"",
+            "05/31/2022\"",
+            "=\"580777777777\"",
+            "=\"195333333333\"",
+            "=\"67222222\"",
+            "=\"Black\"",
+            "=\"2XL\"",
+            "5",
+            "=\"06/08/2022\"",
+            "240",
+            "46984",
+        ];
+
+        let clean_item = Item {
+            ans: String::from("123"),
+            store: String::from("010"),
+            due_date: String::from("6/8/2022 12:00:55 AM"),
+            po: String::from("O0435NGTEE-010"),
+            date_entered: String::from("05/31/2022"),
+            fedex_tracking: String::from("580777777777"),
+            upc: String::from("195333333333"),
+            style: String::from("67222222"),
+            color: String::from("Black"),
+            size: String::from("2XL"),
+            qty: String::from("5"),
+            completed_date: String::from("06/08/2022"),
+            picker: String::from("240"),
+            oder_id: String::from("46984"),
+        };
+
+        let ser = vec![StringRecord::from(dirty_item)];
+
+        assert_eq!(clean_item, clean(ser).unwrap()[0]);
+    }
 }
