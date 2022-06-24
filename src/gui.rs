@@ -12,8 +12,9 @@ impl eframe::App for Gui {
             // egui::Window::new("My Window").show(ctx, |ui| {
             //     ui.label("Hello World!");
             // });
-            // win::win2(ctx, _frame, ui);
             toolbar::toolbar(ctx, _frame, ui);
+            ui.add_space(30.5);
+            table::table_ui(ctx, _frame, ui);
         });
     }
 }
