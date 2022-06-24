@@ -1,7 +1,30 @@
-use anyhow::Result;
+use std::path::PathBuf;
+use thiserror::Error;
 mod fedex;
 use csv::StringRecord;
 use serde::{Deserialize, Serialize};
+
+#[derive(Error, Debug)]
+pub enum DErrors {
+    #[error("File path has not been set")]
+    EmptyPath,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct FilePath(Option<PathBuf>);
+
+impl FilePath {
+    pub fn new(path: Option<PathBuf>) -> FilePath {
+        FilePath(path)
+    }
+
+    pub fn get(self) -> Result<PathBuf, DErrors> {
+        match self.0 {
+            Some(p) => Ok(p),
+            None => Err(DErrors::EmptyPath),
+        }
+    }
+}
 
 /// Item represents a single item, or line, within the ANS.csv file.
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
@@ -75,7 +98,7 @@ impl Field {
 /// Some of the fields within the ANS.csv file contain Excel artifacts.
 /// The data within these fields are wrapped with `=""`.
 /// This function removes these artifacts and leaves behind only the data.
-pub fn clean(record: Vec<StringRecord>) -> Result<Vec<Item>> {
+pub fn clean(record: Vec<StringRecord>) -> Result<Vec<Item>, DErrors> {
     let item: Vec<Item> = record
         .iter()
         .map(|line| Item {

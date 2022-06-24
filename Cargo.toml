@@ -18,3 +18,7 @@ csv = "1.1"
 clap = { version = "3.1", features = ["derive"] }
 serde = { version = "1", features = ["derive"] }
 thiserror = "1.0.31"
+egui = "0.18.1"
+eframe = "0.18.0"
+rfd = "0.9.1"
+egui_extras = "0.18.0"
