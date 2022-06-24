@@ -7,7 +7,7 @@ pub fn table_ui(ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui) {
         .resizable(true)
         .column(Size::remainder().at_least(100.0))
         .column(Size::remainder().at_least(100.0))
-        .column(Size::exact(60.0))
+        .column(Size::remainder())
         .header(20.0, |mut header| {
             header.col(|ui| {
                 ui.heading("Growing");

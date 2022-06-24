@@ -32,8 +32,8 @@ fn run_gui() {
 }
 
 fn run() -> Result<()> {
-    let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
-    // let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
+    // let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
+    let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
     let raw_data = read_file(file_path).context("Error opening the file")?;
     let cleaned_data = dylan::clean(raw_data)?; // records after being cleaned and converted from StringRecord to an Item.
 
