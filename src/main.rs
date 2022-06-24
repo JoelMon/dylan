@@ -25,5 +25,5 @@ fn run() -> Result<()> {
     Ok(())
 }
 fn main() {
-    let _cool = run().expect("An error has been triggered");
+    run().expect("An error has been triggered");
 }
