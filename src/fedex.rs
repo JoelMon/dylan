@@ -32,7 +32,7 @@ impl Tracking {
         self.0.to_owned()
     }
 
-    /// Returns the tracking numer as a `String`.
+    /// Returns the tracking number as a `String`.
     pub fn as_string(self) -> String {
         self.0.to_string()
     }

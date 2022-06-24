@@ -3,7 +3,7 @@ mod fedex;
 use csv::StringRecord;
 use serde::{Deserialize, Serialize};
 
-/// Represents a single item or line within the ANS.csv file.
+/// Item represents a single item, or line, within the ANS.csv file.
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct Item {
     ans: String,
@@ -70,6 +70,11 @@ impl Field {
     }
 }
 
+/// Cleans the data so that it can be processed.
+///
+/// Some of the fields within the ANS.csv file contain Excel artifacts.
+/// The data within these fields are wrapped with `=""`.
+/// This function removes these artifacts and leaves behind only the data.
 pub fn clean(record: Vec<StringRecord>) -> Result<Vec<Item>> {
     let item: Vec<Item> = record
         .iter()
