@@ -1,9 +1,9 @@
 use dylan::Item;
 use eframe::egui;
 use egui::Ui;
-use egui_extras::{Size, TableBody};
+use egui_extras::Size;
 
-pub fn table_ui(ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui, data: Vec<Item>) {
+pub fn table_ui(_ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui, data: Vec<Item>) {
     egui_extras::TableBuilder::new(ui)
         .resizable(true)
         .column(Size::Absolute {
