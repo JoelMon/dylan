@@ -72,52 +72,52 @@ pub fn table_ui(ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui, da
             });
         })
         .body(|mut body| {
-            for row_index in data.iter().enumerate() {
+            for row_index in data.into_iter().enumerate() {
                 body.row(30.0, |mut row| {
                     row.col(|ui| {
                         ui.label(row_index.0.to_string());
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.ans.to_string());
+                        ui.label(row_index.1.ans);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.store.to_string());
+                        ui.label(row_index.1.store);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.due_date.to_string());
+                        ui.label(row_index.1.due_date);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.po.to_string());
+                        ui.label(row_index.1.po);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.date_entered.to_string());
+                        ui.label(row_index.1.date_entered);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.fedex_tracking.to_string());
+                        ui.label(row_index.1.fedex_tracking);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.upc.to_string());
+                        ui.label(row_index.1.upc);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.style.to_string());
+                        ui.label(row_index.1.style);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.color.to_string());
+                        ui.label(row_index.1.color);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.size.to_string());
+                        ui.label(row_index.1.size);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.qty.to_string());
+                        ui.label(row_index.1.qty);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.completed_date.to_string());
+                        ui.label(row_index.1.completed_date);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.picker.to_string());
+                        ui.label(row_index.1.picker);
                     });
                     row.col(|ui| {
-                        ui.label(row_index.1.oder_id.to_string());
+                        ui.label(row_index.1.oder_id);
                     });
                 })
             }
