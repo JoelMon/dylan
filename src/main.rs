@@ -1,13 +1,12 @@
 use std::{fs::File, path::PathBuf};
 mod fedex;
+mod filters;
 mod gui;
 mod table;
 mod toolbar;
 mod win;
 use anyhow::{Context, Result};
 use csv::{self, StringRecord};
-use dylan::Item;
-use eframe::egui;
 
 fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>> {
     let file = File::open(file_path).context("Failed to open file");

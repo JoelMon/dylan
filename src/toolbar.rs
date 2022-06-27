@@ -22,6 +22,11 @@ pub fn toolbar(ctx: &egui::Context, _frame: &mut eframe::Frame, _ui: &mut Ui) {
                         panic!("Exit button clicked: Replace with proper exit code");
                     }
                 });
+                egui::menu::menu_button(ui, "Filters", |ui| {
+                    if ui.button("Picker 128").clicked() {
+                        // filter_chooser(ctx, _frame, ui);
+                    };
+                });
                 ui.separator();
                 global_dark_light_mode_switch(ui);
             });
