@@ -29,20 +29,20 @@ impl FilePath {
 /// Item represents a single item, or line, within the ANS.csv file.
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct Item {
-    ans: String,
-    store: String,
-    due_date: String,
-    po: String,
-    date_entered: String,
-    fedex_tracking: String,
-    upc: String,
-    style: String,
-    color: String,
-    size: String,
-    qty: String,
-    completed_date: String,
-    picker: String,
-    oder_id: String,
+    pub ans: String,
+    pub store: String,
+    pub due_date: String,
+    pub po: String,
+    pub date_entered: String,
+    pub fedex_tracking: String,
+    pub upc: String,
+    pub style: String,
+    pub color: String,
+    pub size: String,
+    pub qty: String,
+    pub completed_date: String,
+    pub picker: String,
+    pub oder_id: String,
 }
 
 /// The fields of an ANS.csv file.

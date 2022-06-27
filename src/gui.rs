@@ -1,6 +1,6 @@
+use crate::get_data;
 use crate::table;
 use crate::toolbar;
-use crate::win;
 use eframe::egui;
 
 #[derive(Debug, Default)]
@@ -14,7 +14,7 @@ impl eframe::App for Gui {
             // });
             toolbar::toolbar(ctx, _frame, ui);
             ui.add_space(30.5);
-            table::table_ui(ctx, _frame, ui);
+            table::table_ui(ctx, _frame, ui, get_data().unwrap());
         });
     }
 }

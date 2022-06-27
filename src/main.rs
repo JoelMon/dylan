@@ -6,6 +6,7 @@ mod toolbar;
 mod win;
 use anyhow::{Context, Result};
 use csv::{self, StringRecord};
+use dylan::Item;
 use eframe::egui;
 
 fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>> {
@@ -25,18 +26,20 @@ fn run_gui() {
         ..Default::default()
     };
     eframe::run_native(
-        "LISA",
+        "Dylan",
         options,
         Box::new(|_cc| Box::new(gui::Gui::default())),
     );
 }
 
-fn run() -> Result<()> {
-    // let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
-    let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
+pub fn get_data() -> Result<Vec<dylan::Item>> {
+    let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
+    // let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
     let raw_data = read_file(file_path).context("Error opening the file")?;
-    let cleaned_data = dylan::clean(raw_data)?; // records after being cleaned and converted from StringRecord to an Item.
+    Ok(dylan::clean(raw_data)?) // records after being cleaned and converted from StringRecord to an Item.
+}
 
+fn run() -> Result<()> {
     run_gui();
     Ok(())
 }
