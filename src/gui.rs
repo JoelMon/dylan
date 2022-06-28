@@ -4,8 +4,22 @@ use dylan::{get_data, Item};
 use eframe::egui;
 use thiserror::Error;
 
-#[derive(Debug, Default)]
-pub struct Gui;
+#[derive(Debug, Default, Clone)]
+pub struct Gui {
+    /// Items loaded from csv file
+    Items: Vec<Item>,
+}
+
+impl Gui {
+    pub fn new() -> Self {
+        Gui {
+            Items: get_data().unwrap(),
+        }
+    }
+    pub fn get(&self) -> Vec<Item> {
+        self.Items.clone()
+    }
+}
 
 #[derive(Debug, Default)]
 pub struct Filters {

@@ -110,6 +110,7 @@ pub fn get_data() -> Result<Vec<Item>, std::io::Error> {
     let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
     // let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
     let raw_data = read_file(file_path)?;
+    println!("Still Reading from file");
     Ok(clean(raw_data).expect("Something went wrong while clean() ran")) // records after being cleaned and converted from StringRecord to an Item.
 }
 /// Cleans the data so that it can be processed.
