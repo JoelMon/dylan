@@ -1,9 +1,10 @@
-use dylan::Item;
+use dylan::{get_data, Item};
 use eframe::egui;
 use egui::Ui;
 use egui_extras::Size;
 
-pub fn table_ui(_ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui, data: Vec<Item>) {
+pub fn table_ui(_ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui) {
+    let data = get_data().unwrap().clone();
     egui_extras::TableBuilder::new(ui)
         .resizable(true)
         .column(Size::Absolute {
