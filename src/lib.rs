@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::{fs::File, path::PathBuf};
 use thiserror::Error;
 mod fedex;
 use csv::StringRecord;
@@ -27,7 +27,7 @@ impl FilePath {
 }
 
 /// Item represents a single item, or line, within the ANS.csv file.
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]
 pub struct Item {
     pub ans: String,
     pub store: String,
@@ -93,6 +93,25 @@ impl Field {
     }
 }
 
+fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>, std::io::Error> {
+    let file = File::open(file_path)?;
+    let mut rdr = csv::Reader::from_reader(file);
+    let mut records: Vec<StringRecord> = vec![];
+
+    for result in rdr.records() {
+        records.push(result?);
+    }
+
+    Ok(records)
+}
+/// Reads the csv file containing the information then passes it to
+/// `clean()` to remove artifacts.
+pub fn get_data() -> Result<Vec<Item>, std::io::Error> {
+    let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
+    // let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
+    let raw_data = read_file(file_path)?;
+    Ok(clean(raw_data).expect("Something went wrong while clean() ran")) // records after being cleaned and converted from StringRecord to an Item.
+}
 /// Cleans the data so that it can be processed.
 ///
 /// Some of the fields within the ANS.csv file contain Excel artifacts.

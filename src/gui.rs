@@ -1,7 +1,8 @@
-use crate::get_data;
 use crate::table;
 use crate::toolbar;
+use dylan::{get_data, Item};
 use eframe::egui;
+use thiserror::Error;
 
 #[derive(Debug, Default)]
 pub struct Gui;
@@ -27,7 +28,7 @@ impl eframe::App for Gui {
             }
             toolbar::toolbar(ctx, _frame, ui);
             ui.add_space(30.5);
-            table::table_ui(ctx, _frame, ui, get_data().unwrap()); // TODO: Slowness is due the processing of data with each frame refresh
+            table::table_ui(ctx, _frame, ui); // TODO: Slowness is due the processing of data with each frame refresh
         });
     }
 }
