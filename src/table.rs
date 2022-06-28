@@ -1,10 +1,11 @@
+use crate::gui::Gui;
 use dylan::{get_data, Item};
 use eframe::egui;
 use egui::Ui;
 use egui_extras::Size;
 
 pub fn table_ui(_ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui) {
-    let data = get_data().unwrap().clone();
+    let data = Gui::new();
     egui_extras::TableBuilder::new(ui)
         .resizable(true)
         .column(Size::Absolute {
@@ -73,7 +74,7 @@ pub fn table_ui(_ctx: &egui::Context, _frame: &mut eframe::Frame, ui: &mut Ui) {
             });
         })
         .body(|mut body| {
-            for row_index in data.into_iter().enumerate() {
+            for row_index in data.get().into_iter().enumerate() {
                 body.row(30.0, |mut row| {
                     row.col(|ui| {
                         ui.label(row_index.0.to_string());
