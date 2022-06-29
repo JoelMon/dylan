@@ -1,4 +1,3 @@
-use crate::table;
 use crate::toolbar;
 use dylan::{get_data, Item};
 use eframe::egui;
@@ -8,8 +7,10 @@ use thiserror::Error;
 #[derive(Debug, Clone)]
 pub struct Gui {
     /// Items loaded from csv file
-    items: Vec<Item>,
+    pub(crate) items: Vec<Item>,
 }
+
+type Order = Vec<Item>; // new time to represent a row
 
 impl Gui {
     pub fn new() -> Self {
@@ -19,6 +20,11 @@ impl Gui {
     }
     pub fn get(&self) -> Vec<Item> {
         self.items.clone()
+    }
+
+    pub fn thing(self) -> Self {
+        // WIP
+        Self { items: self.items }
     }
 }
 
@@ -58,7 +64,7 @@ impl Filters {
 impl eframe::App for Gui {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            let win = Filters { open: true };
+            let win = Filters { open: false };
             if win.get() {
                 egui::Window::new("My Window").show(ctx, |ui| {
                     ui.label("Hello World!");
