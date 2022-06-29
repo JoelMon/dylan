@@ -2,7 +2,6 @@ use std::{fs::File, path::PathBuf};
 mod fedex;
 mod filters;
 mod gui;
-mod table;
 mod toolbar;
 mod win;
 use anyhow::{Context, Result};
