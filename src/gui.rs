@@ -22,6 +22,14 @@ impl Gui {
         self.items.clone()
     }
 }
+impl Push for Gui {
+    fn push(self) -> Self {
+        self
+    }
+}
+pub trait Push {
+    fn push(self) -> Self;
+}
 
 impl Default for Gui {
     fn default() -> Self {
