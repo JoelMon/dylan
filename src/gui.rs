@@ -21,11 +21,6 @@ impl Gui {
     pub fn get(&self) -> Vec<Item> {
         self.items.clone()
     }
-
-    pub fn thing(self) -> Self {
-        // WIP
-        Self { items: self.items }
-    }
 }
 
 impl Default for Gui {
