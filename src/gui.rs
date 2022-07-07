@@ -2,7 +2,6 @@ use crate::toolbar;
 use dylan::{get_data, Item};
 use eframe::egui;
 use egui_extras::Size;
-use thiserror::Error;
 
 #[derive(Debug, Clone)]
 pub struct Gui {
@@ -73,7 +72,7 @@ impl eframe::App for Gui {
                     ui.label("Hello World!");
                 });
             }
-            toolbar::toolbar(ctx, _frame, ui);
+            toolbar::toolbar(&mut self.items, ctx, _frame, ui);
             ui.add_space(30.5);
             // table::table_ui(ctx, _frame, ui); // TODO: Slowness is due the processing of data with each frame refresh
 
