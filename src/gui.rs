@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use crate::toolbar;
 use dylan::{get_data, Item};
 use eframe::egui;
@@ -12,42 +14,36 @@ pub struct Gui {
 type Order = Vec<Item>; // new time to represent a row
 
 impl Gui {
-    pub fn new() -> Self {
-        Gui {
-            items: get_data().unwrap(),
+    pub fn load_file(items: &mut Order, path: PathBuf) {
+        items.clear();
+
+        for item in get_data(path).unwrap() {
+            items.push(item);
         }
     }
     pub fn get(&self) -> Vec<Item> {
         self.items.clone()
     }
 }
-impl Push for Gui {
-    fn push(self) -> Self {
-        self
-    }
-}
-pub trait Push {
-    fn push(self) -> Self;
-}
 
 impl Default for Gui {
     fn default() -> Self {
         Self {
             items: vec![Item {
-                ans: String::from("123"),
-                store: String::from("010"),
-                due_date: String::from("6/8/2022 12:00:55 AM"),
-                po: String::from("O0435NGTEE-010"),
-                date_entered: String::from("05/31/2022"),
-                fedex_tracking: String::from("580777777777"),
-                upc: String::from("195333333333"),
-                style: String::from("67222222"),
-                color: String::from("Black"),
-                size: String::from("2XL"),
-                qty: String::from("5"),
-                completed_date: String::from("06/08/2022"),
-                picker: String::from("240"),
-                oder_id: String::from("46984"),
+                ans: String::from(""),
+                store: String::from(""),
+                due_date: String::from(""),
+                po: String::from(""),
+                date_entered: String::from(""),
+                fedex_tracking: String::from(""),
+                upc: String::from(""),
+                style: String::from(""),
+                color: String::from(""),
+                size: String::from(""),
+                qty: String::from(""),
+                completed_date: String::from(""),
+                picker: String::from(""),
+                oder_id: String::from(""),
             }],
         }
     }
@@ -74,7 +70,6 @@ impl eframe::App for Gui {
             }
             toolbar::toolbar(&mut self.items, ctx, _frame, ui);
             ui.add_space(30.5);
-            // table::table_ui(ctx, _frame, ui); // TODO: Slowness is due the processing of data with each frame refresh
 
             // ##################TABLE##############################//
             let data = self;
