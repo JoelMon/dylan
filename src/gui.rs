@@ -1,27 +1,24 @@
-use std::path::PathBuf;
-
 use crate::toolbar;
-use dylan::{get_data, Item};
+use dylan::{get_data, Item, Orders};
 use eframe::egui;
 use egui_extras::Size;
+use std::path::PathBuf;
 
 #[derive(Debug, Clone)]
 pub struct Gui {
     /// Items loaded from csv file
-    pub(crate) items: Vec<Item>,
+    pub(crate) items: Orders,
 }
 
-type Order = Vec<Item>; // new time to represent a row
-
 impl Gui {
-    pub fn load_file(items: &mut Order, path: PathBuf) {
+    pub fn load_file(items: &mut Orders, path: PathBuf) {
         items.clear();
 
         for item in get_data(path).unwrap() {
             items.push(item);
         }
     }
-    pub fn get(&self) -> Vec<Item> {
+    pub fn get(&self) -> Orders {
         self.items.clone()
     }
 }
