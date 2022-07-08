@@ -1,6 +1,4 @@
-use std::path::PathBuf;
-
-use dylan::{FilePath, Item};
+use dylan::Item;
 use eframe::egui;
 use egui::{global_dark_light_mode_switch, Ui};
 use rfd;
@@ -17,6 +15,8 @@ pub fn toolbar(
         egui::Frame::none().show(ui, |ui| {
             egui::menu::bar(ui, |ui| {
                 egui::menu::menu_button(ui, "File", |ui| {
+                    // File Open
+                    // TODO: Prevent crash when user cancels file dialog box
                     if ui.button("Open").clicked() {
                         let path = rfd::FileDialog::new()
                             .add_filter("csv", &["csv"])
