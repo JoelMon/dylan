@@ -126,63 +126,63 @@ pub fn clean(record: Vec<StringRecord>) -> Result<Vec<Item>, DErrors> {
                 .get(Field::Ans.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             store: line
                 .get(Field::DeliveryLocation.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             due_date: line.get(Field::DateDue.index()).unwrap().to_string(),
             po: line
                 .get(Field::PO.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             date_entered: line
                 .get(Field::DateEntered.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             fedex_tracking: line
                 .get(Field::FedExTracking.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             upc: line
                 .get(Field::UPC.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             style: line
                 .get(Field::Style.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             color: line
                 .get(Field::Color.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             size: line
                 .get(Field::Size.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             qty: line.get(Field::Qty.index()).unwrap().to_string(),
             completed_date: line
                 .get(Field::DateCompleted.index())
                 .unwrap()
                 .trim_start_matches("=\"")
-                .trim_end_matches("\"")
+                .trim_end_matches('\"')
                 .to_string(),
             picker: line.get(Field::Picker.index()).unwrap().to_string(),
             oder_id: line.get(Field::OrderID.index()).unwrap().to_string(),

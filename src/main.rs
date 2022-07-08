@@ -1,10 +1,10 @@
-use std::{fs::File, path::PathBuf};
+
 mod fedex;
 mod filters;
 mod gui;
 mod toolbar;
 mod win;
-use anyhow::{Context, Result};
+use anyhow::{Result};
 
 fn run_gui() {
     let options = eframe::NativeOptions {
