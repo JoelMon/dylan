@@ -1,16 +1,10 @@
-use dylan::Item;
+use dylan::Orders;
 use eframe::egui;
 use egui::{global_dark_light_mode_switch, Ui};
 
-
 use crate::gui::Gui;
 
-pub fn toolbar(
-    items: &mut Vec<Item>,
-    ctx: &egui::Context,
-    _frame: &mut eframe::Frame,
-    _ui: &mut Ui,
-) {
+pub fn toolbar(items: &mut Orders, ctx: &egui::Context, _frame: &mut eframe::Frame, _ui: &mut Ui) {
     egui::TopBottomPanel::top("toolbar").show(ctx, |ui| {
         egui::Frame::none().show(ui, |ui| {
             egui::menu::bar(ui, |ui| {

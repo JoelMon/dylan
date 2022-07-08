@@ -1,8 +1,7 @@
-use std::{fs::File, path::PathBuf};
-use thiserror::Error;
-mod fedex;
 use csv::StringRecord;
 use serde::{Deserialize, Serialize};
+use std::{fs::File, path::PathBuf};
+use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum DErrors {
@@ -10,6 +9,8 @@ pub enum DErrors {
     EmptyPath,
 }
 
+// new time to represent a row
+pub type Orders = Vec<Item>;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FilePath(Option<PathBuf>);
 
@@ -107,7 +108,7 @@ fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>, std::io::Error> {
 
 /// Reads the csv file containing the information then passes it to
 /// `clean()` to remove artifacts.
-pub fn get_data(file_path: PathBuf) -> Result<Vec<Item>, std::io::Error> {
+pub fn get_data(file_path: PathBuf) -> Result<Orders, std::io::Error> {
     let raw_data = read_file(file_path)?;
     println!("Still Reading from file");
     Ok(clean(raw_data).expect("Something went wrong while clean() ran")) // records after being cleaned and converted from StringRecord to an Item.
