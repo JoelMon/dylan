@@ -94,7 +94,7 @@ impl Field {
 }
 
 fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>, std::io::Error> {
-    let file = File::open(file_path)?;
+    let file: File = File::open(file_path)?;
     let mut rdr = csv::Reader::from_reader(file);
     let mut records: Vec<StringRecord> = vec![];
 
@@ -104,15 +104,15 @@ fn read_file(file_path: PathBuf) -> Result<Vec<StringRecord>, std::io::Error> {
 
     Ok(records)
 }
+
 /// Reads the csv file containing the information then passes it to
 /// `clean()` to remove artifacts.
-pub fn get_data() -> Result<Vec<Item>, std::io::Error> {
-    let file_path = PathBuf::from(r"C:\Users\RFID\Desktop\ANS.CSV");
-    // let file_path = PathBuf::from(r"/home/joel/Downloads/ANS.CSV");
+pub fn get_data(file_path: PathBuf) -> Result<Vec<Item>, std::io::Error> {
     let raw_data = read_file(file_path)?;
     println!("Still Reading from file");
     Ok(clean(raw_data).expect("Something went wrong while clean() ran")) // records after being cleaned and converted from StringRecord to an Item.
 }
+
 /// Cleans the data so that it can be processed.
 ///
 /// Some of the fields within the ANS.csv file contain Excel artifacts.
